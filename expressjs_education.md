@@ -87,7 +87,7 @@
         })
     ```
 
-## 5. Data Get with params ile basit bir restfull api
+## 5. Browserdan parametre almak - params ile basit bir restfull api
 
 - Basit bir restfull api
 
@@ -119,5 +119,4 @@
 
         server.listen(5000, () => {
         console.log("http://localhost:5000 adresine gelen istekler dinleniyor.");
-        });
-    ```
+        });   ```
