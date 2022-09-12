@@ -1,27 +1,23 @@
+//imports
 const express = require("express");
+const aktorlerRouter = require('./routers/aktorlerRouter')
+const logger = require('./middlewares/logger')
+const errorHandling = require('./middlewares/errorHandling')
 
-const data = require("./data.js");
 
 const server = express();
+//middleware
+server.use(express.json())//kullanıcıdan gelen verileri jsona çevir. Bu bir middleware.
+server.use(logger)
+server.use("/aktorler", aktorlerRouter)
+
 
 server.get("/", (req, res) => {
-  res.send("Expres'ten Merhaba");
+  res.send("Expres'ten Merhaba.");
 });
 
-server.get("/aktorler", (req, res) => {
-  //res.send("Aktörler Listesi")
-  res.status(200).json(data);
-});
-
-server.get("/aktorler/:id", (req, res) => {
-  const { id } = req.params;
-  const aktor = data.find((aktor) => aktor.id === parseInt(id));
-  if (aktor) {
-    res.status(200).json(aktor);
-  } else {
-    res.status(404).send("Aradığınız aktör bulunamadı!");
-  }
-});
+//middleware
+server.use(errorHandling)
 
 server.listen(5000, () => {
   console.log("http://localhost:5000 adresine gelen istekler dinleniyor.");
